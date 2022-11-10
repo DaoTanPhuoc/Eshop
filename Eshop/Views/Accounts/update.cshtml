@@ -1,0 +1,74 @@
+﻿@model Account
+@using Eshop.Models
+
+
+    <div class="container-fluid">
+  <div class="row">
+      <div class="col">
+    <div class="card mb-4 ">
+      <h5 class="card-header">@Model.FullName</h5>
+      <!-- Account -->
+      <hr class="my-0">
+      <div class="card-body">
+        <form id="formAccountSettings" method="POST" class="fv-plugins-bootstrap5 fv-plugins-framework" enctype="multipart/form-data" asp-action="update" asp-controller="Accounts">
+            <input type="hidden" asp-for="Id" >
+            <div class="mb-3 col-md-6 fv-plugins-icon-container">
+              <label asp-for="Username" class="form-label">UserName</label>
+              <input  asp-for="Username" class="form-control" readonly>
+              <span asp-validation-for="Username" class="text-danger"></span>
+            
+              <div class="fv-plugins-message-container invalid-feedback">
+                  
+              </div></div>
+            <div class="mb-3 col-md-6 fv-plugins-icon-container">
+              <label asp-for="FullName" class="form-label">Full Name</label>
+              <input asp-for="FullName" class="form-control" >
+            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+            <div class="mb-3 col-md-6">
+              <label asp-for="Email" class="form-label">E-mail</label>
+              <input type="email" asp-for="Email" class="form-control" readonly>
+              <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-md-6">
+               <input type="hidden" asp-for="Password" >
+            </div>
+            <div class="mb-3 col-md-6">
+              <label class="form-label" for="phoneNumber">Phone Number</label>
+              <div class="input-group input-group-merge">
+                <span class="input-group-text">VN (+1)</span>
+                <input type="tel" asp-for="Phone" >
+                <span asp-validation-for="Phone" class="text-danger"></span>
+              </div>
+            </div>
+            <div class="mb-3 col-md-6">
+              <label asp-for="Address" class="form-label">Address</label>
+              <input asp-for="Address" class="form-control">
+              <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Avatar" >
+            <div class="mb-3 col-md-6">
+                <label asp-for="ImageFile" class="control-lable"></label>
+                <input asp-for="ImageFile"  class="form-control">
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+                
+                <span asp-validation-for="Avatar" class="text-danger"></span>
+            </div>
+            
+            <input type="hidden" asp-for="IsAdmin" >
+            <input type="hidden" asp-for="Status" >
+          <div class="mt-2">
+            <button type="submit" class="btn btn-primary me-2">Save changes</button>
+            <button type="reset" class="btn btn-label-secondary">Cancel</button>
+          </div>
+        <input type="hidden">
+    </form>
+      </div>
+      <!-- /Account -->
+    </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

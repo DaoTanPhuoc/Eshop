@@ -1,0 +1,39 @@
+﻿@inject IHttpContextAccessor Accessor
+@{
+    String message="";
+    var er = Accessor.HttpContext.Session.GetInt32("Error");
+    @if (er == null)
+    {
+        message = "";
+    }
+    else
+    {
+        message = "Đăng nhập sai thất bại";
+        
+    }
+}
+
+
+@model Account
+@using Eshop.Models
+
+<form asp-action="login" class="col-md-4">
+
+    @message
+
+    <div class="form-group">
+        <label asp-for="Username" class="control-lable"></label>
+        <input asp-for="Username" class="form-control ">
+        
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="Password" class="controll-label"></label>
+        <input asp-for="Password" class="form-control" />
+        
+    </div>
+    
+       
+    <button class="btn btn-success">Login</button>
+    <a asp-action="create_Account">Register</a>
+</form>
