@@ -15,39 +15,49 @@ namespace Eshop.Controllers
     {
         private readonly EshopContext _context;
         private readonly IWebHostEnvironment _environment;
-        private readonly EshopContext db=new EshopContext();
+     
         public ProductsController(EshopContext context, IWebHostEnvironment environment)
         {
             _context = context;
             _environment = environment;
+            
         }
         // GET: Products
-         
-        public ActionResult Index(int ?page,string searchString, int producttytleID = 0,string sortproperType="",string sortOrder="")
+
+        public ActionResult Index(int? page, string searchString, int?producttytleID = 0, string price = "")
         {
-            var books = _context.Products.Include(p=>p.ProductType);
-            var skipbooks = from a in books select(a);
+            var books = _context.Products.Include(p => p.ProductType);
+            var skipbooks = from a in books select (a);
+            //select list branh
+            var brand = _context.ProductTypes.ToList();
+            ViewBag.nameBrand = brand;
             //luu ket qua search
             ViewBag.Keyword = searchString;
-            //search
-            if (!string.IsNullOrEmpty(searchString))
+            ViewBag.Keyprice = price;
+            ViewBag.KeyID = producttytleID;
+
+
+            //search theo tên
+            if (searchString!=null)
             {
                 searchString = searchString.ToLower();
                 skipbooks = skipbooks.Where(b => b.Name.Contains(searchString));
             }
-            //search id cate
-            else if (producttytleID != 0) {
-                skipbooks = skipbooks.Include(p => p.ProductType).Where(b => b.ProductTypeId== producttytleID);
+            //search loai sach
+            if (producttytleID >0) {
+                skipbooks = skipbooks.Include(p => p.ProductType).Where(b => b.ProductTypeId == producttytleID);
             }
 
-            // show cate and id cate
-            if (producttytleID != 0)
+            // show id và loai sach
+            if (producttytleID < 0 && searchString==null)
             {
-                skipbooks = skipbooks.Where(c => c.ProductTypeId == producttytleID);
+                skipbooks = from a in books select (a);
             }
-            ViewBag.producttytleID = new SelectList(_context.ProductTypes,"Id","Name");
-            // sort lever
-
+            else if (producttytleID < 0 && searchString != null)
+            {
+                searchString = searchString.ToLower();
+                skipbooks = skipbooks.Where(b => b.Name.Contains(searchString));
+            }
 
             // phan trang+search
             var countitem = skipbooks.Count();
@@ -76,18 +86,26 @@ namespace Eshop.Controllers
             }
 
             // sap xep nang cao
-                // tao gia tri sap xep
-            if (sortOrder == "asc") ViewBag.SortOrder = "desc";
-            if (sortOrder == "desc") ViewBag.SortOrder = "";
-            if (sortOrder == "") ViewBag.SortOrder = "asc";
+            // tao gia tri sap xep
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem() { Text = "Giá tăng dần", Value = "tăng" });
+            items.Add(new SelectListItem() { Text = "Giá giảm dần", Value = "giảm" });
+            items.Add(new SelectListItem() { Text = "Xem mặt định", Value = "", Selected = true });
+            ViewBag.price = items;
+
+            switch (price)
+            {
+                case "tăng":
+                    skipbooks = skipbooks.OrderByDescending(p => p.Price);
+                    break;
+                case "giảm":
+                    skipbooks = skipbooks.OrderBy(p => p.Price);
+                    break;
+            }
 
 
-			// phuong thuc sap sep dinh cao
-			if (sortproperType == "Name")
-			{
-             
-                skipbooks=skipbooks.OrderByDescending(x => x.Name);
-			}
+            // phuong thuc sap sep dinh cao
+
             return View(skipbooks.ToList());
         }
         
@@ -246,39 +264,7 @@ namespace Eshop.Controllers
         }
 
         /// view product customer
-        public IActionResult Search(int? p, string? searchString)
-        {
-            if (p == null)
-            {
-                p = 1;
-            }
-            var productskip = _context.Products.Include(p => p.ProductType).Skip((int)(p - 1) * 6).Take(6).ToList();
-            var tabproduct = _context.Products.Count();
-
-            if (searchString != null)
-            {
-                productskip = _context.Products.Include(p => p.ProductType).Where(p => p.Name.Contains(searchString)).Skip((int)(p - 1) * 6).Take(6).ToList();
-            }
-            var brand = _context.ProductTypes.ToList();
-            ViewBag.nameBrand = brand;
-            ViewBag.tab = tabproduct / 6;
-
-            return View("Index", productskip);
-        }
-        public IActionResult Brand(int? b)
-        {
-            var productskip = _context.Products.Where(p => p.ProductTypeId == b).ToList();
-            if (productskip != null)
-            {
-
-                return RedirectToAction("Index","Produts", productskip);
-            }
-            else
-            {
-                return View("Error");
-            }
-            
-        }
+        
         //public async Task<IActionResult> Index()
         //{
         //    var eshopContext = _context.Products.Include(p => p.ProductType);
