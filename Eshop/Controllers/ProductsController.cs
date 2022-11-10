@@ -24,7 +24,7 @@ namespace Eshop.Controllers
         }
         // GET: Products
 
-        public ActionResult Index(int? page, string searchString, int producttytleID = 0, string price = "")
+        public ActionResult Index(int? page, string searchString, int?producttytleID = 0, string price = "")
         {
             var books = _context.Products.Include(p => p.ProductType);
             var skipbooks = from a in books select (a);
@@ -33,15 +33,18 @@ namespace Eshop.Controllers
             ViewBag.nameBrand = brand;
             //luu ket qua search
             ViewBag.Keyword = searchString;
+            ViewBag.Keyprice = price;
+            ViewBag.KeyID = producttytleID;
+
+
             //search theo tên
-            if (!string.IsNullOrEmpty(searchString))
+            if (searchString!=null)
             {
                 searchString = searchString.ToLower();
                 skipbooks = skipbooks.Where(b => b.Name.Contains(searchString));
             }
             //search loai sach
-
-            else if (producttytleID >=0) {
+            if (producttytleID >0) {
                 skipbooks = skipbooks.Include(p => p.ProductType).Where(b => b.ProductTypeId == producttytleID);
             }
 

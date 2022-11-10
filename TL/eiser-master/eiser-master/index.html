@@ -21,6 +21,7 @@
   <!-- main css -->
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="stylesheet" href="layouthome.css">
 </head>
 
 <body>
@@ -142,17 +143,26 @@
                     </a>
                   </li>
 
-                  <li class="nav-item">
-                    <a href="#" class="icons">
+                  <li class="nav-item account">
+                      <i class="ti-user icons " aria-hidden="true" onclick="myFunction()" ></i>
+                      <ul class="item" id="iconmenu" style="display: none;" onmouseout="byuser(this)">
+                        <ol>
+                          Admin
+                        </ol>
+                        <ol>
+                          Thông tin
+                        </ol><ol>
+                          Đăng nhập
+                        </ol>
+                        <ol>
+                          Dăng xuất
+                        </ol>
+                      </ul>
+                    <!-- <a href="" class="icons">
                       <i class="ti-user" aria-hidden="true"></i>
-                    </a>
+                    </a> -->
                   </li>
-
-                  <li class="nav-item">
-                    <a href="#" class="icons">
-                      <i class="ti-heart" aria-hidden="true"></i>
-                    </a>
-                  </li>
+ 
                 </ul>
               </div>
             </div>
@@ -161,6 +171,19 @@
       </div>
     </div>
   </header>
+  <script>
+    function myFunction() {
+   var element = document.getElementById("iconmenu");
+   if(element.style.display=="none"){
+    element.style.display="block";
+   }else{
+    element.style.display="none"
+   }
+   
+  
+}
+</script>
+  
   <!--================Header Menu Area =================-->
 
   <!--================Home Banner Area =================-->
@@ -913,6 +936,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="vendors/counter-up/jquery.counterup.js"></script>
   <script src="js/mail-script.js"></script>
   <script src="js/theme.js"></script>
+
 </body>
 
 </html>

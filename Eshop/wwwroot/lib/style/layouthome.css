@@ -1,0 +1,29 @@
+.account {
+    position: relative;
+}
+
+    .account .item {
+        background-color: rgba(255, 255, 255, 0.384);
+        position: absolute;
+        width: 8rem;
+        border-left: 1.2px solid black;
+    }
+
+        .account .item ol {
+            width: 100%;
+            cursor: pointer;
+            padding: 1rem;
+            color: rgb(0, 0, 0);
+            font-size: 1rem;
+            font-weight: 900;
+            transition: transform 0.2s;
+            border: 0.2px solid black;
+        }
+
+            .account .item ol:hover {
+                background-color: rgba(55, 177, 31, 0.363);
+                color: #71cd14;
+                border-bottom: 2px solid black;
+                animation: 0.5s ship alternate;
+                transform: scale(1.2);
+            }
