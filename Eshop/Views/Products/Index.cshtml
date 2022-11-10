@@ -59,7 +59,7 @@
 			<div class="col">
 				<div class="product">
 					<nav class="bg-light">
-						@using (Html.BeginForm("Shop", "Products", new { @class = "from-inline" }))
+						@using (Html.BeginForm("Index", "Products", new { @class = "from-inline" }))
 						{
 							<div class="row">
 								<div class="col-lg-4">
@@ -71,10 +71,19 @@
 								<div class="col-lg-4">
 									<div class="row">
 										<div class="col-lg-4">Chủ đề:</div>
-										<div class="col-lg-8 px-0">@Html.DropDownList("producttytleID",null,htmlAttributes:new{@class="form-control"})</div>
+										<div class="col-lg-8 px-0">
+										<select class="form-control" name="producttytleID" id="producttytleID"> 
+										 <option value="-1">Không</option>
+										 @foreach (var item in ViewBag.nameBrand)
+										 {
+											  <option value="@item.Id">@item.Name</option>
+										 }
+										</select>
+										
+										</div>
 									</div>
 								</div>
-
+								 @Html.DropDownList("price",null,htmlAttributes:new{@class="form-control"})
 								<div class="col">
 									<input type="submit" class="btn btn-danger" value="Tìm sách">
 								</div>
@@ -83,10 +92,9 @@
 										<div class="widgets_inner">
 											<div class="range_item">
 												<div id="slider-range"></div>
-												<div class="">
-													<label for="amount">Price : </label>
-													<input type="text" id="amount" readonly />
-												</div>
+												 
+													
+												 
 											</div>
 										</div>
 									</aside>
