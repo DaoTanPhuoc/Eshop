@@ -140,8 +140,8 @@
 										 src="~/img/product/@item.Image"
 										 alt=".Name" />
 										<div class="p_icon">
-											<a href="#">
-												<i class="ti-eye"></i>
+											<a asp-controller="Products" asp-action="Detailitem" asp-route-id="@item.Id">
+												 <i class="ti-eye"></i>
 											</a>
 											<a href="#">
 												<i class="ti-heart"></i>
