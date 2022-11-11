@@ -75,7 +75,7 @@
 											<select class="form-control" name="producttytleID" id="producttytleID" value="@ViewBag.KeyID">
 												@if(ViewBag.KeyID == -1)
 												{
-													<option value="-1" true>Không</option>
+													<option value="-1" selected>Không</option>
 												}
 												else
 												{
@@ -92,7 +92,7 @@
 													{
 														if (ViewBag.KeyID == item.Id)
 														{
-															<option value="@item.Id" true>@item.Name</option>
+															<option value="@item.Id" selected>@item.Name</option>
 														}
 														else
 														{
@@ -141,10 +141,7 @@
 										 alt=".Name" />
 										<div class="p_icon">
 											<a asp-controller="Products" asp-action="Detailitem" asp-route-id="@item.Id">
-												 <i class="ti-eye"></i>
-											</a>
-											<a href="#">
-												<i class="ti-heart"></i>
+												<i class="ti-eye"></i>
 											</a>
 											<a asp-controller="Carts" asp-action="addCreate" asp-route-AccountId="@id" asp-route-ProductId="@item.Id" asp-route-soluong="1">
 												<i class="ti-shopping-cart"></i>
@@ -188,7 +185,4 @@
 	</div>
 
 </section>
-@section jqeryajax{
-	<script src="~/lib/vendors/jquery-ui/jquery-ui.js"></script>
 
-}

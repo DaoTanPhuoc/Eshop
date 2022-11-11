@@ -111,7 +111,7 @@ namespace Eshop.Controllers
         
 
         
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Detailitem(int? id)
         {
             if (id == null || _context.Products == null)
             {
