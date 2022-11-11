@@ -46,7 +46,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" asp-action="Index" asp-controller="Dashboard">
+                <a class="nav-link" asp-area="Dashboard" asp-action="Index" asp-controller="Home">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
@@ -70,7 +70,6 @@
                 <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Tables:</h6>
-                        <button asp-area="Dashboard" asp-controller="Accounts" asp-action="Index">Accounts</button>
                         <a class="collapse-item" asp-area="Dashboard" asp-controller="Accounts" asp-action="Index" >Accounts</a>
                         <a class="collapse-item" asp-action="Index" asp-controller="Invoices">Invoices</a>
                         <a class="collapse-item" asp-action="Index" asp-controller="Products">Products</a>
