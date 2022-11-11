@@ -338,5 +338,15 @@ namespace Eshop.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        // đổi mật khẩu
+        
+        public IActionResult updatePass(string oldPass, string newPass, string confiPass)
+        {
+
+            var oldP = oldPass;
+            return RedirectToAction("Index", "Home");
+        }
+       
     }
 }
