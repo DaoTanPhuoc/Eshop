@@ -340,11 +340,19 @@ namespace Eshop.Controllers
         }
 
         // đổi mật khẩu
-        
-        public IActionResult updatePass(string oldPass, string newPass, string confiPass)
+        [HttpPost]
+        public IActionResult updatePass(int Id,string oldPass, string newPass)
         {
 
-            var oldP = oldPass;
+            var obj = _context.Accounts.Where(x => x.Password == oldPass && x.Id==Id).FirstOrDefault();
+            if (obj != null)
+            {
+
+                obj.Password = newPass;
+                _context.Update(obj);
+                _context.SaveChanges();
+            }
+            
             return RedirectToAction("Index", "Home");
         }
        
