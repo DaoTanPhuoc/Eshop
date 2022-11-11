@@ -28,6 +28,8 @@
     <Folder Include="Areas\Dashboard\Data\" />
     <Folder Include="Areas\Dashboard\Models\" />
     <Folder Include="Areas\Dashboard\Views\Shared\" />
+    <Folder Include="Views\InvoiceDetails\" />
+    <Folder Include="Views\ProductTypes\" />
   </ItemGroup>
 
 </Project>

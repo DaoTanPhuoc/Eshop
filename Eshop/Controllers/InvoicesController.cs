@@ -166,12 +166,12 @@ namespace Eshop.Controllers
           return _context.Invoices.Any(e => e.Id == id);
         }
 
-        public IActionResult purchase()
+        public IActionResult Purchase()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult purchase(String shipAddress, String shipPhone)
+        public IActionResult Purchase(String shipAddress, String shipPhone)
         {
             var id = HttpContext.Session.GetInt32("id");
             if(id == 0)
@@ -202,11 +202,10 @@ namespace Eshop.Controllers
                     Quantity = item.Quantity,
                     UnitPrice = item.Product.Price
                 };
-                var product = item.Product;
-                product.Stock -= item.Quantity;
+                item.Product.Stock -= item.Quantity;
                 _context.InvoiceDetails.Add(detail);
                 _context.Carts.Remove(item);
-                _context.Products.Update(product);
+                _context.Products.Update(item.Product);
                 
             }
             _context.SaveChanges();
