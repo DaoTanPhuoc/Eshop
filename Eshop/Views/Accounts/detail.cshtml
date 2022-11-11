@@ -49,6 +49,31 @@
                 <p class="font-italic mb-1">@Model.Phone</p>
                 <p class="font-italic mb-0">@Model.FullName</p>
               </div>
+
+              <http>
+                  @using (Html.BeginForm("updatePass", "Accounts", new { @class = "from-inline" }))
+                        {
+                 
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                        <input type="password" name="oldPass" class="form-control" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="newPass" class="form-control" placeholder="New Password">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="confiPass" class="form-control" placeholder="confi Pasword">
+                    </div>
+
+                    
+                        <button type="submit" class="btn btn-success">ChangePassword</button>
+                    
+                  </div>
+                
+              
+              }
+              </http>
+
             </div>
   
           </div>
