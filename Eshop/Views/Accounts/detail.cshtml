@@ -1,7 +1,44 @@
-﻿@using Eshop.Models
+﻿
+
+@using Eshop.Models
 @inject IHttpContextAccessor Accessor
 @{
     var id = Accessor.HttpContext.Session.GetInt32("id");
+}
+@section positonZindex{
+
+    <style>
+    .card-body{
+        height:16rem;
+    }
+     .displaya{
+        display: flex;
+    justify-content:space-around;
+    }
+    .positonZindex{
+    position: relative;
+    width:100%;
+}
+.positonZindex >div{
+    position: absolute;
+    width:100%;
+   
+}
+#zindex1{
+    
+    z-index: 2;
+}
+#zindex2{
+    text-align: center;
+    background-color: #f8f9fa;
+    z-index: -1;
+}
+.dexaa{
+    margin: 0 auto;
+    w
+}
+    </style>
+    
 }
 
 @model Account
@@ -15,10 +52,8 @@
               <img class="Avatar" src="~/img/avatar/@Model.Avatar"
                 alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
                 style="width: 150px; z-index: 1">
-              <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
-                style="z-index: 1; margin-top:10px">
-               <a asp-action="update" asp-controller="Accounts" asp-route-Id="@id">Edit profile</a> 
-              </button>
+
+              
             </div>
             <div class="ms-3" style="margin-top: 120px; margin-left:20px">
               <h3>@Model.Username</h3>
@@ -26,8 +61,24 @@
             </div>
           </div>
           <div class="p-4 text-black" style="background-color: #f8f9fa;">
-            <div class="d-flex justify-content-end text-center py-1">
-              <div>
+            <div class="displaya">
+               <div>
+        
+         <button type="button" class="btn btn-outline-dark" onclick="zindex1()" data-mdb-ripple-color="dark"
+             >
+             Profile
+        </button>
+        <button type="button" class="btn btn-outline-dark" onclick="zindex2()" data-mdb-ripple-color="dark"
+             >
+            Password
+        </button>
+        <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
+             >
+            <a asp-action="update" asp-controller="Accounts" asp-route-Id="@id">Edit profile</a>
+        </button>
+    </div>
+    <div class="d-flex justify-content-end text-center">
+         <div>
                 <p class="mb-1 h5">253</p>
                 <p class="small text-muted mb-0">Photos</p>
               </div>
@@ -39,16 +90,50 @@
                 <p class="mb-1 h5">478</p>
                 <p class="small text-muted mb-0">Following</p>
               </div>
+    </div>
+             
             </div>
           </div>
-          <div class="card-body p-4 text-black">
-            <div class="mb-5">
-              <p class="lead fw-normal mb-1">About</p>
-              <div class="p-4" style="background-color: #f8f9fa;">
+          <div class="card-body p-4 text-black ">
+            <div class="mb-5 positonZindex">
+                <div id="zindex1">
+                    
+              <div style="background-color: #f8f9fa;">
+                   <p class="lead fw-normal mb-1">About</p>
                 <p class="font-italic mb-1">@Model.Email</p>
                 <p class="font-italic mb-1">@Model.Phone</p>
                 <p class="font-italic mb-0">@Model.FullName</p>
               </div>
+                </div>
+             
+
+              <div id="zindex2">
+                  
+                  @using (Html.BeginForm("updatePass", "Accounts", new { @class = "from-inline" }))
+                        {
+                  <div>
+                       <p class="lead fw-normal mb-1">Update Password</p>
+                       <div class="col-lg-9 dexaa">
+                           <input type="hidden" asp-for="Id"/>
+                    <div class="form-group">
+                        <input type="password" name="oldPass" class="form-control" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="newPass" class="form-control" placeholder="New Password">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="confiPass" class="form-control" placeholder="confi Pasword">
+                    </div>
+                     
+                         <button type="submit" class="btn btn-success">ChangePassword</button>
+                    
+                       
+                  </div>
+                  </div>
+                 
+              }
+              </div>
+
             </div>
   
           </div>
@@ -60,15 +145,27 @@
 
 <style>
     .gradient-custom-2 {
-/* fallback for old browsers */
+
 background: #fbc2eb;
 
-/* Chrome 10-25, Safari 5.1-6 */
 background: -webkit-linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1));
 
-/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 background: linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1))
 }
 </style>
 
 <a asp-controller="Home" asp-action="Index">Back to</a>
+@section zindex{
+    <script>
+         let element1=document.getElementById('zindex1');
+         let element2=document.getElementById('zindex2');
+        function zindex1(){
+            element1.style.zIndex="1";
+            element2.style.zIndex="-1";
+        }
+        function zindex2(){
+            element1.style.zIndex="-1";
+            element2.style.zIndex="1";
+        }
+    </script>
+}

@@ -1,6 +1,7 @@
 ﻿@inject IHttpContextAccessor Accessor
 @{
     String name = Accessor.HttpContext.Session.GetString("Name");
+    
     var id = Accessor.HttpContext.Session.GetInt32("id");
     var cartsAccount=Accessor.HttpContext.Session.GetInt32("cartsAccount");
     
@@ -29,7 +30,10 @@
     <!-- main css -->
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/css/responsive.css" />
+    <link rel="stylesheet" href="~/lib/style/layouthome.css" />
+    
       @RenderSection("CSS", required: false)
+      @RenderSection("positonZindex", required: false)
 </head>
 
 <body>
@@ -139,52 +143,65 @@
 
                             <div class="col-lg-5 pr-0">
                                 <ul class="nav navbar-nav navbar-right right_nav pull-right">
-                                    <li class="nav-item">
-                                        <a href="#" class="icons">
-                                            <i class="ti-search" aria-hidden="true"></i>
-                                        </a>
-                                    </li>
-                                    @if(cartsAccount!=null){
-                                    <li class="nav-item">
-                                        <a asp-controller="Carts" asp-action="IndexUser" asp-route-id="@id" class="icons">
-                                            @cartsAccount<i class="ti-shopping-cart"></i>
-                                        </a>
-                                    </li>
-                                    }else{
-                                    <li class="nav-item">
-                                        <a href="#" class="icons">
-                                            <i class="ti-shopping-cart"></i>
-                                        </a>
+
+                                    @if (id != null)
+                                    {
+                                         @if(cartsAccount!=null){
+                                            <li class="nav-item">
+                                                <a asp-controller="Carts" asp-action="IndexUser" asp-route-id="@id" >
+                                                <i class="ti-shopping-cart icons"> @cartsAccount</i>
+                                                 </a>
+                                            </li>
+                                         }
+                                         else{
+                                         <li class="nav-item">
+                                            <i class="ti-shopping-cart icons"></i>
+                                        </li>
+                                        }
+
+
+                                     <li class="nav-item account">
+                                         <i class="ti-user icons " aria-hidden="true" onclick="myFunction()" >@name</i>
+                                            <ul class="item" id="iconmenu" style="display: none;">
+                                                @if (name == "Admin")
+                                                {
+                                                    <ol>
+                                                   <a asp-controller="Dashboard" asp-action="Index">Admin</a> 
+                                                 </ol>
+                                                }
+                                                
+                                                <ol>
+                                                <a asp-controller="Accounts" asp-action="detail" asp-route-id="@id">Thông tin</a> 
+                                                </ol>
+                                                <ol>
+                                                <a asp-controller="Accounts" asp-action="logout">Đăng xuất</a>
+                                                 </ol>
+                                             </ul>
+                     
                                     </li>
                                     }
+                                    else{
+                                         <li class="nav-item icons">
+                                            <i class="ti-shopping-cart"></i>
+                                        </li>
 
-                                    <li class="nav-item">
-                                        @if(id != null)
-                                        {
-                                            <a asp-controller="Accounts" asp-action="detail" asp-route-id="@id" class="icons">
-                                                <i class="ti-user" aria-hidden="true"></i> @name
-                                            </a> 
-                                        } else{
-                                        <a asp-controller="Accounts" asp-action="login" class="icons">
-                                                <i class="ti-user" aria-hidden="true"></i>
-                                            </a> 
-                                        }
-                                    </li>
+                                        <li class="nav-item account">
+                                        <i class="ti-user icons " aria-hidden="true" onclick="myFunction()" ></i>
+                                            <ul class="item" id="iconmenu" style="display: none;">
+                                                
+                                                <ol>
+                                                <a asp-controller="Accounts" asp-action="login">Đăng nhập</a> 
+                                                </ol>
+                                                <ol>
+                                                <a asp-controller="Accounts" asp-action="create_Account">Dăng ký</a>
+                                                 </ol>
+                                             </ul>
+                                          </li>
+                                    }
+                                   
+                                    
 
-                                    <li class="nav-item">
-                                        <a href="#" class="icons">
-                                            <i class="ti-heart" aria-hidden="true"></i>
-                                        </a>
-                                    </li>
-
-                                    <li class="nav-item">@if(id != null)
-                                        {
-                                            <a asp-controller="Accounts" asp-action="logout" class="icons">
-                                                <i class="ti-user" aria-hidden="true"></i>
-                                            </a> 
-
-                                        }</li>
-                                     
+                                   
                                 </ul>
                             </div>
                         </div>
@@ -292,9 +309,22 @@
     <script src="~/lib/vendors/counter-up/jquery.counterup.js"></script>
     <script src="~/js/mail-script.js"></script>
     <script src="~/js/theme.js"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+    function myFunction() {
+   var element = document.getElementById("iconmenu");
+   if(element.style.display=="none"){
+    element.style.display="block";
+   }else{
+    element.style.display="none"
+   }
+   
+  
+}
+</script>
+     @RenderSection("zindex", required:false)
     @RenderSection("upload", required:false)
     @RenderSection("jqeryajax", required:false)
+    @RenderSection("Scripts", required:false)
 </body>
 
 </html>
