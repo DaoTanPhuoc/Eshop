@@ -1,4 +1,6 @@
-﻿@using Eshop.Models
+﻿
+
+@using Eshop.Models
 @inject IHttpContextAccessor Accessor
 @{
     var id = Accessor.HttpContext.Session.GetInt32("id");
@@ -109,17 +111,10 @@
                   
                   @using (Html.BeginForm("updatePass", "Accounts", new { @class = "from-inline" }))
                         {
-<<<<<<< HEAD
-                 
-                  <div class="col-lg-4">
-                      
-                        <input type="hidden" asp-for="Id" >
-                   
-=======
                   <div>
                        <p class="lead fw-normal mb-1">Update Password</p>
                        <div class="col-lg-9 dexaa">
->>>>>>> master
+                           <input type="hidden" asp-for="Id"/>
                     <div class="form-group">
                         <input type="password" name="oldPass" class="form-control" placeholder="Password">
                     </div>
@@ -129,15 +124,10 @@
                     <div class="form-group">
                         <input type="password" name="confiPass" class="form-control" placeholder="confi Pasword">
                     </div>
-<<<<<<< HEAD
-                    
-                        <button type="submit" class="btn btn-success">ChangePassword</button>  
-=======
                      
                          <button type="submit" class="btn btn-success">ChangePassword</button>
                     
                        
->>>>>>> master
                   </div>
                   </div>
                  
@@ -155,13 +145,11 @@
 
 <style>
     .gradient-custom-2 {
-/* fallback for old browsers */
+
 background: #fbc2eb;
 
-/* Chrome 10-25, Safari 5.1-6 */
 background: -webkit-linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1));
 
-/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 background: linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1))
 }
 </style>
