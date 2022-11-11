@@ -19,18 +19,21 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>Eshop-CreateAccount</title>
 	<link rel="stylesheet" href="~/lib/style/intro2.css">
 </head>
 <body>
 	<main class="main">
 		<section class="form-submit">
-			<h1>login</h1>
+			<h1>Create Account</h1>
 			<form asp-action="create_Account" class="col-md-4" enctype="multipart/form-data">
 				<input type="hidden" asp-for="Id">
 
 				<section class="style-main">
 					<section class="log-left">
+						<div class="image">
+							<img src="~/img/avatar/noavatar.jpg"/>
+						</div>
 						<div class="form-group">
 							<input asp-for="ImageFile" class="form-control" placeholder="ImageFile">
 							<span asp-validation-for="Avatar" class="text-danger"></span>
@@ -79,8 +82,10 @@
 
 
 
-
-
+				<div>
+					<a asp-action="login">Login</a>
+				</div>
+				
 				<button class="btn btn-success">Create</button>
 
 			</form>

@@ -56,7 +56,7 @@ svg text {
     transform: translate(-50%,-70%);
     padding: 10px;
     width: 25%;
-    height: 52%;
+  
     text-align: center;
     box-shadow: 2px 3px 3px 2px rgba(0, 0, 0, 0.659);
 }
