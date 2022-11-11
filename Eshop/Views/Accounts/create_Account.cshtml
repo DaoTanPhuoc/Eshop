@@ -1,66 +1,113 @@
-﻿
-
-@model Account
+﻿@model Account
 @using Eshop.Models
+@{
+	Layout = "formlog";
+}
 
 
 
-<form asp-action="create_Account" class="col-md-4" enctype="multipart/form-data">
-    <input type="hidden" asp-for="Id" >
-    <div class="form-group">
-        <label asp-for="Username" class="control-lable"></label>
-        <input asp-for="Username" class="form-control" >
-        <span asp-validation-for="Username" class="text-danger"></span>
-    </div>
 
-    <div class="form-group">
-        <label asp-for="Password" class="control-lable"></label>
-        <input asp-for="Password" class="form-control" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Email" class="control-lable"></label>
-        <input asp-for="Email" class="form-control">
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Phone" class="control-lable"></label>
-        <input asp-for="Phone" class="form-control" />
-        <span asp-validation-for="Phone" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Address" class="control-lable"></label>
-        <input asp-for="Address" class="form-control" />
-        <span asp-validation-for="Address" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="FullName" class="control-lable"></label>
-        <input asp-for="FullName" class="form-control">
-        <span asp-validation-for="FullName" class="text-danger"></span>
-    </div>
-
-    <input type="hidden" asp-for="IsAdmin" >
-    <div class="form-group">
-        <label asp-for="ImageFile" class="control-lable"></label>
-        <input asp-for="ImageFile" class="form-control">
-        <span asp-validation-for="Avatar" class="text-danger"></span>
-    </div>
-    <input type="hidden" asp-for="Status" >
-    
-
-    <button class="btn btn-success">Add</button>
- 
-</form>
 
 
 <div>
-    <a asp-action="login">back</a>
+	<a asp-action="login">back</a>
 </div>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Eshop-CreateAccount</title>
+	<link rel="stylesheet" href="~/lib/style/intro2.css">
+</head>
+<body>
+	<main class="main">
+		<section class="form-submit">
+			<h1>Create Account</h1>
+			<form asp-action="create_Account" class="col-md-4" enctype="multipart/form-data">
+				<input type="hidden" asp-for="Id">
+
+				<section class="style-main">
+					<section class="log-left">
+						<div class="image">
+							<img src="~/img/avatar/noavatar.jpg"/>
+						</div>
+						<div class="form-group">
+							<input asp-for="ImageFile" class="form-control" placeholder="ImageFile">
+							<span asp-validation-for="Avatar" class="text-danger"></span>
+						</div>
+						<input type="hidden" asp-for="Status">
+
+
+						<div class="form-group">
+							<input asp-for="Username" class="form-control" placeholder="Username">
+							<span asp-validation-for="Username" class="text-danger"></span>
+						</div>
+
+						<div class="form-group">
+							<input asp-for="Password" class="form-control" placeholder="Password" />
+							<span asp-validation-for="Password" class="text-danger"></span>
+						</div>
+
+					</section>
+
+					<section class="log-right">
+						<div class="form-group">
+							<input asp-for="Email" class="form-control" placeholder="Email">
+							<span asp-validation-for="Email" class="text-danger"></span>
+						</div>
+
+						<div class="form-group">
+							<input asp-for="Phone" class="form-control" placeholder="Phone" />
+							<span asp-validation-for="Phone" class="text-danger"></span>
+						</div>
+
+						<div class="form-group">
+							<input asp-for="Address" class="form-control" placeholder="Address" />
+							<span asp-validation-for="Address" class="text-danger"></span>
+						</div>
+
+						<div class="form-group">
+							<input asp-for="FullName" class="form-control" placeholder="FullName">
+							<span asp-validation-for="FullName" class="text-danger"></span>
+						</div>
+
+						<input type="hidden" asp-for="IsAdmin">
+
+					</section>
+
+				</section>
+
+
+
+				<div>
+					<a asp-action="login">Login</a>
+				</div>
+				
+				<button class="btn btn-success">Create</button>
+
+			</form>
+		</section>
+		<div class="Eshop">
+			<svg>
+				<symbol id="text">
+					<text text-anchor="center" x="20%" y="65%">Eshop Everything Book</text>
+				</symbol>
+				<use xlink:href="#text"></use>
+			</svg>
+		</div>
+	</main>
+	<section class="bgcover">
+	</section>
+</body>
+</html>
+
+
+
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	}
