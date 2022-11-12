@@ -8,9 +8,17 @@
 
   <ItemGroup>
     <Compile Remove="images\**" />
+    <Compile Remove="Views\InvoiceDetails\**" />
+    <Compile Remove="Views\ProductTypes\**" />
     <Content Remove="images\**" />
+    <Content Remove="Views\InvoiceDetails\**" />
+    <Content Remove="Views\ProductTypes\**" />
     <EmbeddedResource Remove="images\**" />
+    <EmbeddedResource Remove="Views\InvoiceDetails\**" />
+    <EmbeddedResource Remove="Views\ProductTypes\**" />
     <None Remove="images\**" />
+    <None Remove="Views\InvoiceDetails\**" />
+    <None Remove="Views\ProductTypes\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,8 +36,6 @@
     <Folder Include="Areas\Dashboard\Data\" />
     <Folder Include="Areas\Dashboard\Models\" />
     <Folder Include="Areas\Dashboard\Views\Shared\" />
-    <Folder Include="Views\InvoiceDetails\" />
-    <Folder Include="Views\ProductTypes\" />
   </ItemGroup>
 
 </Project>
