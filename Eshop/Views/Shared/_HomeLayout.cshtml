@@ -102,13 +102,16 @@
                                                 <a class="nav-link" asp-controller="Products" asp-action ="Index">Shop Category</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" asp-controller="Products" asp-action="Detail">Product Details</a>
+                                                <a class="nav-link" asp-controller="Products" asp-action="Detailitem" asp-route-id="@id">Product Details</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="checkout.html">Product Checkout</a>
+                                                <a class="nav-link" asp-action="Purchase" asp-controller="Invoices">Product Checkout</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="cart.html">Shopping Cart</a>
+                                                 
+                                                        <a class="nav-link" asp-controller="Carts" asp-action="IndexUser" asp-route-id="@id">Shopping Cart</a>
+                                                   
+
                                             </li>
                                         </ul>
                                     </li>

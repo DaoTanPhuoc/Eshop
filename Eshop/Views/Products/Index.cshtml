@@ -8,7 +8,7 @@
 			margin: 0;
 		}
 				.section_gap {
-					padding: 10px 0px;
+					
 				}
 
 				.search {
@@ -60,14 +60,17 @@
 						@using (Html.BeginForm("Index", "Products", new { @class = "from-inline" }))
 						{
 							<div class="row">
-								<div class="col-lg-4">
-									<div class="row">
-										<div class="col-lg-3"><label>Tên sách:</label></div>
-										<div class="col-lg-9 pl-0"> <input type="Text" class="form-control mx-sm-3" value="@ViewBag.Keyword" name="searchString" placeholder="Nhập tên sách cần tìm"></div>
+								<div class="col col-lg-9">
+									
+										<div class="col-lg-9 pl-0" style="text-align: center"> <input type="Text" class="form-control mx-sm-3" value="@ViewBag.Keyword" name="searchString" placeholder="Nhập tên sách cần tìm"></div>
+									
+									<div class="col-lg-9 pl-0" style="text-align: center">
+									<input type="submit" class="btn btn-danger" value="Tìm sách">
 									</div>
 								</div>
-								<div class="col-lg-4">
-									<div class="row">
+								<div class="col-lg-3">
+									<div class="col">
+										<div class="row">
 										<div class="col-lg-4">Chủ đề:</div>
 										<div class="col-lg-8 px-0">
 											<select class="form-control" name="producttytleID" id="producttytleID" value="@ViewBag.KeyID">
@@ -102,23 +105,20 @@
 											</select>
 										</div>
 									</div>
-								</div>
-								@Html.DropDownList("price",null,htmlAttributes:new{@class="form-control"})
-								<div class="col">
-									<input type="submit" class="btn btn-danger" value="Tìm sách">
-								</div>
-								<div class="col-3">
-									<aside class="left_widgets p_filter_widgets">
-										<div class="widgets_inner">
-											<div class="range_item">
-												<div id="slider-range"></div>
-
-
-
-											</div>
+									<div class="row">
+									 
+										<div class="col-lg-4">Giá:</div>
+										<div class="col-lg-8 px-0">
+										@Html.DropDownList("price",null,htmlAttributes:new{@class="form-control"})
 										</div>
-									</aside>
+									</div>
+									</div>
+								
 								</div>
+								
+								
+								
+								
 							</div>
 						}
 					</nav>
@@ -127,7 +127,7 @@
 					<div class="row">
 						@foreach (var item in Model)
 						{
-							<div class="col-lg-4 col-md-6">
+							<div class="col-lg-3 col-md-6">
 								<div class="single-product">
 									<div class="product-img">
 										<img class="card-img"
