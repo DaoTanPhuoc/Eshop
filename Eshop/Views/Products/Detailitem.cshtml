@@ -1,11 +1,18 @@
 ﻿@model Eshop.Models.Product
-
+@inject IHttpContextAccessor Accessor
 @{
     ViewData["Title"] = "Details";
-    var stock = @Html.DisplayFor(model => model.Stock);
+    var stock = @Model.Stock;
+    var ida = @Model.Id;
+
     var a = "Còn hàng";
-    if (stock==null) a=a;
+    if (stock>0) a=a;
     else a = "Hết hàng";
+
+    ///
+    var id = Accessor.HttpContext.Session.GetInt32("id");
+	if (id == null) id = -1;
+	var oder = Accessor.HttpContext.Session.GetInt32("oder");
 }
 @section acs{
     <style>
@@ -21,42 +28,12 @@
       <div class="container">
         <div class="row s_product_inner">
           <div class="col-lg-6">
-            <div class="s_product_img">
+            <div class="s_product_img px-auto" style="margin:0 auto;width:60%;padding-bottom:5%">
               <div
                 id="carouselExampleIndicators"
                 class="carousel slide"
                 data-ride="carousel"
               >
-                <ol class="carousel-indicators">
-                  <li
-                    data-target="#carouselExampleIndicators"
-                    data-slide-to="0"
-                    class="active"
-                  >
-                    <img style="width:100%"
-                      src="~/img/product/@Html.DisplayFor(model => model.Image)"
-                      alt=""
-                    />
-                  </li>
-                  <li 
-                    data-target="#carouselExampleIndicators"
-                    data-slide-to="1"
-                  >
-                    <img style="width:100%"
-                      src="~/img/product/@Html.DisplayFor(model => model.Image)"
-                      alt=""
-                    />
-                  </li>
-                  <li
-                    data-target="#carouselExampleIndicators"
-                    data-slide-to="2"
-                  >
-                    <img style="width:100%"
-                      src="~/img/product/@Html.DisplayFor(model => model.Image)"
-                      alt=""
-                    />
-                  </li>
-                </ol>
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     <img
@@ -83,7 +60,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-5 offset-lg-1">
+          <div class="col-lg-6">
             <div class="s_product_text">
               <h3> @Html.DisplayFor(model => model.Name)</h3>
               <h2>$@Html.DisplayFor(model => model.Price)</h2>
@@ -100,40 +77,10 @@
               <p>
                @Html.DisplayFor(model => model.Description)
               </p>
-              <div class="product_count">
-                <label for="qty">Quantity:</label>
-                <input
-                  type="text"
-                  name="qty"
-                  id="sst"
-                  maxlength="12"
-                  value="1"
-                  title="Quantity:"
-                  class="input-text qty"
-                />
-                <button
-                  onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                  class="increase items-count"
-                  type="button"
-                >
-                  <i class="lnr lnr-chevron-up"></i>
-                </button>
-                <button
-                  onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                  class="reduced items-count"
-                  type="button"
-                >
-                  <i class="lnr lnr-chevron-down"></i>
-                </button>
-              </div>
+             
               <div class="card_area">
-                <a class="main_btn" href="#">Add to Cart</a>
-                <a class="icon_btn" href="#">
-                  <i class="lnr lnr lnr-diamond"></i>
-                </a>
-                <a class="icon_btn" href="#">
-                  <i class="lnr lnr lnr-heart"></i>
-                </a>
+                
+               <a  class="main_btn" asp-controller="Carts" asp-action="addCreate" asp-route-AccountId="@id" asp-route-ProductId="@ida" asp-route-soluong="1" asp-route-Actionk="Detailitem">Add to Cart</a>
               </div>
             </div>
           </div>

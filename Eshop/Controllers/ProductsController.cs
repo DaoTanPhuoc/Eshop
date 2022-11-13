@@ -36,7 +36,6 @@ namespace Eshop.Controllers
             ViewBag.Keyprice = price;
             ViewBag.KeyID = producttytleID;
 
-
             //search theo tên
             if (searchString!=null)
             {
@@ -103,9 +102,7 @@ namespace Eshop.Controllers
                     break;
             }
 
-
-            // phuong thuc sap sep dinh cao
-
+            
             return View(skipbooks.ToList());
         }
         

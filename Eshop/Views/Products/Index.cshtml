@@ -46,13 +46,11 @@
 
 	var id = Accessor.HttpContext.Session.GetInt32("id");
 	if (id == null) id = -1;
-
-
-
+	var oder = Accessor.HttpContext.Session.GetInt32("oder");
 }
 <!-- Đoạn cần thêm -->
 <!-- Kết thúc -->
-
+<input type="hidden" value="@oder" id="oder"/>
 <section class="cat_product_area section_gap">
 	<div class="container">
 		<div class="row">
@@ -122,10 +120,6 @@
 									</aside>
 								</div>
 							</div>
-
-
-
-
 						}
 					</nav>
 				</div>
@@ -143,9 +137,19 @@
 											<a asp-controller="Products" asp-action="Detailitem" asp-route-id="@item.Id">
 												<i class="ti-eye"></i>
 											</a>
-											<a asp-controller="Carts" asp-action="addCreate" asp-route-AccountId="@id" asp-route-ProductId="@item.Id" asp-route-soluong="1">
+											@if (@item.Stock > 0)
+											{
+												<a asp-controller="Carts" asp-action="addCreate" asp-route-AccountId="@id" asp-route-ProductId="@item.Id" asp-route-soluong="1" asp-route-Action="IndexProducts">
 												<i class="ti-shopping-cart"></i>
 											</a>
+											}
+											@if (@item.Stock <= 0)
+											{
+												<a style="background-color:beige;">
+												<i class="ti-shopping-cart"></i>
+												</a>
+												
+											}
 
 										</div>
 									</div>
@@ -185,4 +189,21 @@
 	</div>
 
 </section>
+@section checkoder{
+	<script>
+	//$(document).ready(function(){
+    //        var oder= document.getElementById('oder');
+    //        console.log(oder.value);
+    //        if(oder.value==1){
+    //            alert("Thêm vào giỏ hàng thành công")
+    //        }
+    //        else if( oder.value==-1){
+    //            alert("Thêm vào giỏ hàng thất bại! vui lòng liên hệ với Shop để biết thêm thông tin sản phẩm")
+    //        }
+    //    oder.value = "2";
+	//	if(window.location.href !="https://localhost:7155/Products")
+	//	oder.value = "2";
+   //     });
+</script>
+}
 

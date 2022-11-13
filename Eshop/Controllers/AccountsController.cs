@@ -263,6 +263,10 @@ namespace Eshop.Controllers
             }
             else
             {
+                // khi dang nhap thanh cong thi dua san pham tu gio hang cua nguoi do ra ngoai
+                var soluong = _context.Carts.Where(a => a.AccountId == obj.Id).Sum(p => p.Quantity);
+                HttpContext.Session.SetInt32("cartsAccount", soluong);
+                //
                 HttpContext.Session.SetInt32("id", obj.Id);
                 HttpContext.Session.SetString("Name", "Admin");
                 return RedirectToAction("Index","Home");// day la trang cua admin
