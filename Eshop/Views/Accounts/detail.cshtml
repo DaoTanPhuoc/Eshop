@@ -1,6 +1,4 @@
-﻿
-
-@using Eshop.Models
+﻿@using Eshop.Models
 @inject IHttpContextAccessor Accessor
 @{
     var id = Accessor.HttpContext.Session.GetInt32("id");
@@ -35,140 +33,146 @@
 }
 .dexaa{
     margin: 0 auto;
-<<<<<<< HEAD
-=======
 z
->>>>>>> master
 }
     </style>
-    
+
 }
 
-@model Account
+    @model Account
 <section class="h-100 gradient-custom-2">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col col-lg-9 col-xl-7">
-        <div class="card">
-          <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
-            <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
-              <img class="Avatar" src="~/img/avatar/@Model.Avatar"
-                alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
-                style="width: 150px; z-index: 1">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-lg-9 col-xl-7">
+                    <div class="card">
+                        <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
+                            <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
+                                <img class="Avatar" src="~/img/avatar/@Model.Avatar"
+                                 alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
+                                 style="width: 150px; z-index: 1">
 
-              
-            </div>
-            <div class="ms-3" style="margin-top: 120px; margin-left:20px">
-              <h3>@Model.Username</h3>
-              <p>@Model.Address</p>
-            </div>
-          </div>
-          <div class="p-4 text-black" style="background-color: #f8f9fa;">
-            <div class="displaya">
-               <div>
-        
-         <button type="button" class="btn btn-outline-dark" onclick="zindex1()" data-mdb-ripple-color="dark"
-             >
-             Profile
-        </button>
-        <button type="button" class="btn btn-outline-dark" onclick="zindex2()" data-mdb-ripple-color="dark"
-             >
-            Password
-        </button>
-        <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
-             >
-            <a asp-action="update" asp-controller="Accounts" asp-route-Id="@id">Edit profile</a>
-        </button>
-    </div>
-    <div class="d-flex justify-content-end text-center">
-         <div>
-                <p class="mb-1 h5">253</p>
-                <p class="small text-muted mb-0">Photos</p>
-              </div>
-              <div class="px-3">
-                <p class="mb-1 h5">1026</p>
-                <p class="small text-muted mb-0">Followers</p>
-              </div>
-              <div>
-                <p class="mb-1 h5">478</p>
-                <p class="small text-muted mb-0">Following</p>
-              </div>
-    </div>
+
+                            </div>
+                            <div class="ms-3" style="margin-top: 120px; margin-left:20px">
+                                <h3>@Model.Username</h3>
+                                <p>@Model.Address</p>
+                            </div>
+                        </div>
+                        <div class="p-4 text-black" style="background-color: #f8f9fa;">
+                            <div class="displaya">
+                                <div>
+
+                                    <button type="button" class="btn btn-outline-dark" onclick="zindex1()" data-mdb-ripple-color="dark">
+                                        Profile
+                                    </button>
+                                    <button type="button" class="btn btn-outline-dark" onclick="zindex2()" data-mdb-ripple-color="dark">
+                                        Password
+                                    </button>
+                                    <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark">
+                                        <a asp-action="update" asp-controller="Accounts" asp-route-Id="@id">Edit profile</a>
+                                    </button>
+                                </div>
+                                <div class="d-flex justify-content-end text-center">
+                                    <div>
+                                        <p class="mb-1 h5">253</p>
+                                        <p class="small text-muted mb-0">Photos</p>
+                                    </div>
+                                    <div class="px-3">
+                                        <p class="mb-1 h5">1026</p>
+                                        <p class="small text-muted mb-0">Followers</p>
+                                    </div>
+                                    <div>
+                                        <p class="mb-1 h5">478</p>
+                                        <p class="small text-muted mb-0">Following</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="card-body p-4 text-black ">
+                            <div class="mb-5 positonZindex">
+                                <div id="zindex1">
+
+                                    <div style="background-color: #f8f9fa;">
+                                        <p class="lead fw-normal mb-1">About</p>
+                                        <p class="font-italic mb-1">@Model.Email</p>
+                                        <p class="font-italic mb-1">@Model.Phone</p>
+                                        <p class="font-italic mb-0">@Model.FullName</p>
+                                    </div>
+                                </div>
+
+
+                                <div id="zindex2">
+
+                                    @using (Html.BeginForm("updatePass", "Accounts", new { @class = "from-inline" }))
+                                {
+
+                                    <div>
+                                        
+                                            <p class="lead fw-normal mb-1">Update Password</p>
+                                            <div class="col-lg-9 dexaa">
              
-            </div>
-          </div>
-          <div class="card-body p-4 text-black ">
-            <div class="mb-5 positonZindex">
-                <div id="zindex1">
-                    
-              <div style="background-color: #f8f9fa;">
-                   <p class="lead fw-normal mb-1">About</p>
-                <p class="font-italic mb-1">@Model.Email</p>
-                <p class="font-italic mb-1">@Model.Phone</p>
-                <p class="font-italic mb-0">@Model.FullName</p>
-              </div>
+                                                <input type="hidden" asp-for="Id" />
+                                                <div class="form-group">
+                                                    <input type="password" name="oldPass" class="form-control" placeholder="Password">
+                                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="password" name="newPass" class="form-control" placeholder="New Password">
+                                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="password" name="confiPass" class="form-control" placeholder="confi Pasword">
+                                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                                </div>
+                                                <span>@ViewBag.ErrorMess</span>
+
+                                                <button type="submit" class="btn btn-success">ChangePassword</button>
+
+
+                                            </div>
+                                        
+                                    </div>
+
+
+                                    }
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
-             
-
-              <div id="zindex2">
-                  
-                  @using (Html.BeginForm("updatePass", "Accounts", new { @class = "from-inline" }))
-                        {
-                  <div>
-                       <p class="lead fw-normal mb-1">Update Password</p>
-                       <div class="col-lg-9 dexaa">
-                           <input type="hidden" asp-for="Id"/>
-                    <div class="form-group">
-                        <input type="password" name="oldPass" class="form-control" placeholder="Password">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" name="newPass" class="form-control" placeholder="New Password">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" name="confiPass" class="form-control" placeholder="confi Pasword">
-                    </div>
-                     
-                         <button type="submit" class="btn btn-success">ChangePassword</button>
-                    
-                       
-                  </div>
-                  </div>
-                 
-              }
-              </div>
-
             </div>
-  
-          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<style>
-    .gradient-custom-2 {
-
-background: #fbc2eb;
-
-background: -webkit-linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1));
-
-background: linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1))
-}
-</style>
-
-<a asp-controller="Home" asp-action="Index">Back to</a>
-@section zindex{
-    <script>
-         let element1=document.getElementById('zindex1');
-         let element2=document.getElementById('zindex2');
-        function zindex1(){
-            element1.style.zIndex="1";
-            element2.style.zIndex="-1";
+    <style>
+        .gradient-custom-2 {
+            background: #fbc2eb;
+            background: -webkit-linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1));
+            background: linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1))
         }
-        function zindex2(){
-            element1.style.zIndex="-1";
-            element2.style.zIndex="1";
+    </style>
+
+    <a asp-controller="Home" asp-action="Index">Back to</a>
+    @section zindex{
+    <script>
+        let element1 = document.getElementById('zindex1');
+        let element2 = document.getElementById('zindex2');
+        function zindex1() {
+            element1.style.zIndex = "1";
+            element2.style.zIndex = "-1";
+        }
+        function zindex2() {
+            element1.style.zIndex = "-1";
+            element2.style.zIndex = "1";
         }
     </script>
 }
+
+    @section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+	}

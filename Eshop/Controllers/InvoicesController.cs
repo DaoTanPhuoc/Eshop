@@ -166,20 +166,27 @@ namespace Eshop.Controllers
           return _context.Invoices.Any(e => e.Id == id);
         }
 
-        public IActionResult purchase()
+        public IActionResult Purchase()
         {
+            var id = HttpContext.Session.GetInt32("id");
+            if (id == null)
+                return RedirectToAction("login", "Accounts");
             return View();
         }
         [HttpPost]
-        public IActionResult purchase(String shipAddress, String shipPhone)
+        public IActionResult Purchase(String shipAddress, String shipPhone)
         {
             var id = HttpContext.Session.GetInt32("id");
-            if(id == 0)
+            if(id == null)
             {
                 return RedirectToAction("Index", "Home");
             }
+            if(shipAddress == null || shipPhone == null)
+            {
+                return View();
+            }
             var accountId = _context.Accounts.Where(a => a.Id == id).FirstOrDefault().Id;
-            var carts = _context.Carts.Where(c => c.Account.Id == id).ToList();
+            var carts = _context.Carts.Include(c => c.Product).Include(c=>c.Account);
             int total = _context.Carts.Where(c=>c.AccountId == accountId).Sum(c => c.Product.Stock * c.Product.Price);
             Invoice invoice = new Invoice
             {
@@ -202,11 +209,10 @@ namespace Eshop.Controllers
                     Quantity = item.Quantity,
                     UnitPrice = item.Product.Price
                 };
-                var product = item.Product;
-                product.Stock -= item.Quantity;
+                item.Product.Stock -= item.Quantity;
                 _context.InvoiceDetails.Add(detail);
                 _context.Carts.Remove(item);
-                _context.Products.Update(product);
+                _context.Products.Update(item.Product);
                 
             }
             _context.SaveChanges();

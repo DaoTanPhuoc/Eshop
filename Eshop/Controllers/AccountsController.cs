@@ -295,7 +295,7 @@ namespace Eshop.Controllers
         {
             if (Id == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("login", "Accounts");
             }
             var obj = _context.Accounts.Where(u => u.Id == Id).FirstOrDefault();
             if (obj == null)
@@ -355,9 +355,16 @@ namespace Eshop.Controllers
                 obj.Password = newPass;
                 _context.Update(obj);
                 _context.SaveChanges();
+
+            }
+            else
+            {
+                ViewBag.ErrorMess = "Mật khẩu không hợp lệ! ";
+                
             }
             
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("detail", "Accounts", new {Id=Id});
+
         }
        
     }
