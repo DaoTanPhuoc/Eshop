@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Thanh toán";
+}
+<div class="row d-flex align-items-center justify-content-center">
+    <div class="col-md-4">
+<form asp-action="Purchase">
+    <div class="input-group-icon mt-10 form-group">
+        <div class="icon">
+            <i class="fa fa-thumb-tack" aria-hidden="true"></i>
+        </div>
+        <input type="text" name="shipAddress" placeholder="Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Address'" required="" class="single-input">
+    </div>
+    <div class="input-group-icon mt-10 form-group">
+        <div class="icon">
+            <i class="fa fa-phone" aria-hidden="true"></i>
+        </div>
+        <input type="text" name="shipPhone" placeholder="Phone" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone'" required="" class="single-input">
+    </div>
+    <input class="genric-btn success circle" type="submit" value="Thanh toán" />
+</form>
+    </div>
+</div>
