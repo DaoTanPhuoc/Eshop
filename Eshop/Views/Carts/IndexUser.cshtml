@@ -52,14 +52,14 @@
 										<h5>$@item.Product.Price</h5>
 									</td>
 									<td>
-										<input type="hidden" id="check" value="@item.Quantity">
+										<input type="hidden" class="check" value="@item.Quantity">
 											@if (item.Quantity <= item.Product.Stock)
 											{
-												<input id="check2" onclick="myFunctions()" type="number" name="Quantity" min="0" max="@item.Product.Stock"value="@item.Quantity"title="Quantity:"/>
+												<input class="check2" oninput="myFunctions()" type="number" name="Quantity" min="0" max="@item.Product.Stock"value="@item.Quantity"title="Quantity:"/>
 											}
 											else
 											{
-												<input id="check2" onclick="myFunctions()" type="number"
+												<input class="check2" oninput="myFunctions()" type="number"
 										   name="Quantity"
 										   min="0"
 										   max="@item.Product.Stock"
@@ -67,14 +67,15 @@
 										   title="Quantity:"/>
 										   <span>Bạn hãy liên hệ shop để nhận những thông tin về sản phẩm này nhé</span>
 											}
+											 
 
 									</td>
 									<td>
 										<h5>@(item.Product.Price*@item.Quantity)</h5>
 									</td>
 									<td>
-										<button id="showsc"  style="display:none" type="submit">Save</button>
-										<a class="" style="display:none">nguyen</a>
+										<button class="main_btn" type="submit">Save</button>
+										 
 									</td>
 									
 								</tr>
@@ -88,6 +89,7 @@
 						<tr>
 							<td></td>
 							<td></td>
+							<td></td>
 							<td>
 								<h5>Subtotal</h5>
 							</td>
@@ -95,16 +97,15 @@
 								<h5>$@total</h5>
 							</td>
 						</tr>
-
-						
 						<tr class="out_button_area">
+							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>
 							<td>
 								<div class="checkout_btn_inner">
 									<a class="gray_btn" asp-action="Index" asp-controller="Products">Continue Shopping</a>
-									<a class="main_btn" asp-action="">Proceed to checkout</a>
+									<a class="main_btn" asp-action="Purchase" asp-controller="Invoices">Proceed to checkout</a>
 								</div>
 							</td>
 						</tr>
@@ -116,16 +117,5 @@
 	</div>
 </section>
 @section checkSave{
-	<script>
-	 $(document).ready(function(){
-
-		 $('#check2').on('click',function(e){
-			 if( $('#check').value== this.value){
-				 $('#showsc').style.display = "none";
-				 alert('ádasd')
-			 }
-			  $('#showsc').style.display = "block";
-		 })
-      });
-   </script>
+ 
 }

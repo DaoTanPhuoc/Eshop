@@ -24,7 +24,7 @@ namespace Eshop.Controllers
         }
         // GET: Products
 
-        public ActionResult Index(int? page, string searchString, int?producttytleID = 0, string price = "")
+        public ActionResult Index(int? page, string searchString="", int?producttytleID = 0, string price = "")
         {
             var books = _context.Products.Include(p => p.ProductType);
             var skipbooks = from a in books select (a);
@@ -59,29 +59,32 @@ namespace Eshop.Controllers
             }
 
             // phan trang+search
+            
             var countitem = skipbooks.Count();
+            double matchcelling = countitem;
             if (page == null)
             {
                 page = 1;
                
 
-                    skipbooks = skipbooks.Skip((int)(page - 1) * 6).Take(6);
-                    ViewBag.tab = countitem / 6;
-                
+                skipbooks = skipbooks.Skip((int)(page - 1) * 8).Take(8);
+               
+
             }
             if(countitem<=0)
 			{
                 ViewBag.tab = 0;
             }
-            else if (countitem < 6)
+            else if (countitem < 8)
 			{
                 skipbooks = skipbooks.Skip((int)(page - 1) * countitem).Take(countitem);
                 ViewBag.tab = 1;
             }
 			else
 			{
-                skipbooks = skipbooks.Skip((int)(page - 1) * 6).Take(6);
-                ViewBag.tab = ViewBag.tab = countitem / 6;
+                skipbooks = skipbooks.Skip((int)(page - 1) * 8).Take(8);
+                matchcelling = matchcelling / 8;
+                ViewBag.tab = Math.Ceiling(matchcelling);
             }
 
             // sap xep nang cao
@@ -94,10 +97,10 @@ namespace Eshop.Controllers
 
             switch (price)
             {
-                case "tăng":
+                case "giảm":
                     skipbooks = skipbooks.OrderByDescending(p => p.Price);
                     break;
-                case "giảm":
+                case "tăng":
                     skipbooks = skipbooks.OrderBy(p => p.Price);
                     break;
             }
@@ -110,16 +113,16 @@ namespace Eshop.Controllers
         
         public async Task<IActionResult> Detailitem(int? id)
         {
-            if (id == null || _context.Products == null)
+            if (id == null )
             {
-                return NotFound();
+                return RedirectToAction("login", "Accounts");
             }
 
             var product = await _context.Products
                 .Include(p => p.ProductType)
                .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
-           {
+            {
                 return NotFound();
             }
 
