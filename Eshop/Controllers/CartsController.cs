@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Eshop.Data;
 using Eshop.Models;
 using Microsoft.AspNetCore.Http;
+ 
 
 namespace Eshop.Controllers
 {
@@ -125,7 +126,7 @@ namespace Eshop.Controllers
             }
             ViewData["AccountId"] = new SelectList(_context.Accounts, "Id", "Username", cart.AccountId);
             ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", cart.ProductId);
-            return View(cart);
+            return View("IndexUser",id);
         }
 
         // GET: Carts/Delete/5
@@ -173,52 +174,106 @@ namespace Eshop.Controllers
         }
 
         [HttpGet]
-        public IActionResult addCreate (int AccountId, int ProductId, int soluong){
+        public IActionResult addCreate (int AccountId, int ProductId, int soluong,string Actionk)
+        {
+            var itemcarts=_context.Carts.Where(p=>p.AccountId== AccountId && p.ProductId == ProductId).FirstOrDefault();
+            var stockcart = _context.Products.Where(p=>p.Id==ProductId).FirstOrDefault();
+             
             if (AccountId == -1)
             {
                 return RedirectToAction("login","Accounts");
             }
-			else
-			{
-                
-                var item = _context.Carts.Where(p => p.ProductId == ProductId && p.AccountId==AccountId).ToList();
+            else
+            {
+                var item = _context.Carts.Where(p => p.ProductId == ProductId && p.AccountId == AccountId).ToList();
                 var itemcart = new Cart
                 {
                     AccountId = AccountId,
                     ProductId = ProductId,
                     Quantity = 1,
                 };
-
-                if (item.Count ==0)
+                // new như chua co thi add và và so luong dúng 
+                if (itemcarts == null)
                 {
-                    
                     _context.Add(itemcart);
                     _context.SaveChanges();
-                    soluong = _context.Carts.Where(a => a.AccountId == AccountId).Sum(p=>p.Quantity);
-                    soluong += 1;
+                    soluong = _context.Carts.Where(a => a.AccountId == AccountId).Sum(p => p.Quantity);
+                    HttpContext.Session.SetInt32("oder", 1);
                     HttpContext.Session.SetInt32("cartsAccount", soluong);
+                     
                 }
                 else
                 {
-                    // lay ra id san pham de update
-                    var idupdate = _context.Carts.Where(p => p.ProductId == ProductId && p.AccountId == AccountId).FirstOrDefault();
+                    if (itemcarts.Quantity >= stockcart.Stock)
+                    {
+                        HttpContext.Session.SetInt32("oder", -1);
+                        return RedirectToAction("Index", "Products");
+                    }
+                    else
+                    {
+                        if (item.Count == 0)
+                        {
+                            _context.Add(itemcart);
+                            _context.SaveChanges();
+                            soluong = _context.Carts.Where(a => a.AccountId == AccountId).Sum(p => p.Quantity);
+                            HttpContext.Session.SetInt32("oder", 1);
+                            HttpContext.Session.SetInt32("cartsAccount", soluong);
+                        }
+                        else
+                        {
+                            // lay ra id san pham de update
+                            var idupdate = _context.Carts.Where(p => p.ProductId == ProductId && p.AccountId == AccountId).FirstOrDefault();
 
-                    // gan id sam pham            
-                    //cap nhat lai jso luon san pham
-                    idupdate.Quantity += 1;
-                    //update
-                    _context.Update(idupdate);
-                    _context.SaveChanges();
-                    // dem so luon 
-                    soluong = _context.Carts.Where(a => a.AccountId == AccountId).Sum(p => p.Quantity);
-                    HttpContext.Session.SetInt32("cartsAccount", soluong);
+                            // gan id sam pham            
+                            //cap nhat lai jso luon san pham
+                            idupdate.Quantity += 1;
+                            //update
+                            _context.Update(idupdate);
+                            _context.SaveChanges();
+                            // dem so luon 
+                            soluong = _context.Carts.Where(a => a.AccountId == AccountId).Sum(p => p.Quantity);
+                            HttpContext.Session.SetInt32("oder", 1);
+                            HttpContext.Session.SetInt32("cartsAccount", soluong);
+                        }
+                    }
                 }
+              
             }
-            return RedirectToAction("Index","Products");
+            // trả về vị trí đang đứng 
+            if(Actionk == "IndexProducts")
+                return RedirectToAction("Index","Products");
+            if(Actionk == "Detailitem")
+                return RedirectToAction("Detailitem", "Products", new {id=ProductId});
+            if (Actionk == "Homeindex")
+                return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Products");
         }
+        public IActionResult Save([Bind("Id,AccountId,ProductId,Quantity")] Cart cartitem)
+        {
+            // goi so luong len
+            var soluong = HttpContext.Session.GetInt32("cartsAccount");
+             
+            //
+            if (cartitem.Quantity == 0)
+            {
+                _context.Carts.Remove(cartitem);
+                _context.SaveChanges();
+            }
+            else
+            {
+                _context.Update(cartitem);
+                _context.SaveChanges();
+            }
+            soluong = _context.Carts.Where(p => p.AccountId == cartitem.AccountId).Sum(p=>p.Quantity);
+            HttpContext.Session.SetInt32("cartsAccount", (int)soluong);
         
+
+            return RedirectToAction("IndexUser", "Carts", new {id=cartitem.AccountId});
+        }
+
         public IActionResult IndexUser(int id)
 		{
+           
 			if (id == 0)
 			{
                 return RedirectToAction("login", "Accounts");

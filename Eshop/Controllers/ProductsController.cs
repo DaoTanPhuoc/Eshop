@@ -36,7 +36,6 @@ namespace Eshop.Controllers
             ViewBag.Keyprice = price;
             ViewBag.KeyID = producttytleID;
 
-
             //search theo tên
             if (searchString!=null)
             {
@@ -103,31 +102,29 @@ namespace Eshop.Controllers
                     break;
             }
 
-
-            // phuong thuc sap sep dinh cao
-
+            
             return View(skipbooks.ToList());
         }
         
 
-        // GET: Products/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null || _context.Products == null)
-        //    {
-        //        return NotFound();
-        //    }
+        
+        public async Task<IActionResult> Detailitem(int? id)
+        {
+            if (id == null || _context.Products == null)
+            {
+                return NotFound();
+            }
 
-        //    var product = await _context.Products
-        //        .Include(p => p.ProductType)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (product == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var product = await _context.Products
+                .Include(p => p.ProductType)
+               .FirstOrDefaultAsync(m => m.Id == id);
+            if (product == null)
+           {
+                return NotFound();
+            }
 
-        //    return View(product);
-        //}
+            return View(product);
+        }
 
         // GET: Products/Create
         //public IActionResult Create()

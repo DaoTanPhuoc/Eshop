@@ -34,6 +34,7 @@
     
       @RenderSection("CSS", required: false)
       @RenderSection("positonZindex", required: false)
+      @RenderSection("acs", required: false)
 </head>
 
 <body>
@@ -295,6 +296,8 @@
     <!--================ End footer Area  =================-->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="~/js/jqueryokla.js"></script>
+       @RenderSection("checkSave", required:false)
     <script src="~/js/jquery-3.2.1.min.js"></script>
     <script src="~/js/popper.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
@@ -309,7 +312,32 @@
     <script src="~/lib/vendors/counter-up/jquery.counterup.js"></script>
     <script src="~/js/mail-script.js"></script>
     <script src="~/js/theme.js"></script>
-    <script>
+  
+ 
+   
+   
+     @RenderSection("zindex", required:false)
+    @RenderSection("upload", required:false)
+    @RenderSection("jqeryajax", required:false)
+    @RenderSection("Scripts", required:false)
+    @RenderSection("assss", required:false)
+    @RenderSection("checkoder", required:false)
+     <script>
+       //$(document).ready(function(){
+    //        var oder= document.getElementById('oder');
+    //        console.log(oder.value);
+    //        if(oder.value==1){
+    //            alert("Thêm vào giỏ hàng thành công")
+    //        }
+    //        else if( oder.value==-1){
+    //            alert("Thêm vào giỏ hàng thất bại! vui lòng liên hệ với Shop để biết thêm thông tin sản phẩm")
+    //        }
+    //    oder.value = "2";
+	//	if(window.location.href !="https://localhost:7155/Products")
+	//	oder.value = "2";
+   //     });
+
+
     function myFunction() {
    var element = document.getElementById("iconmenu");
    if(element.style.display=="none"){
@@ -317,14 +345,12 @@
    }else{
     element.style.display="none"
    }
+
    
   
 }
 </script>
-     @RenderSection("zindex", required:false)
-    @RenderSection("upload", required:false)
-    @RenderSection("jqeryajax", required:false)
-    @RenderSection("Scripts", required:false)
+
 </body>
 
 </html>

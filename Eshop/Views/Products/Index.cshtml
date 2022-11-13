@@ -46,13 +46,11 @@
 
 	var id = Accessor.HttpContext.Session.GetInt32("id");
 	if (id == null) id = -1;
-
-
-
+	var oder = Accessor.HttpContext.Session.GetInt32("oder");
 }
 <!-- Đoạn cần thêm -->
 <!-- Kết thúc -->
-
+<input type="hidden" value="@oder" id="oder"/>
 <section class="cat_product_area section_gap">
 	<div class="container">
 		<div class="row">
@@ -75,7 +73,7 @@
 											<select class="form-control" name="producttytleID" id="producttytleID" value="@ViewBag.KeyID">
 												@if(ViewBag.KeyID == -1)
 												{
-													<option value="-1" true>Không</option>
+													<option value="-1" selected>Không</option>
 												}
 												else
 												{
@@ -92,7 +90,7 @@
 													{
 														if (ViewBag.KeyID == item.Id)
 														{
-															<option value="@item.Id" true>@item.Name</option>
+															<option value="@item.Id" selected>@item.Name</option>
 														}
 														else
 														{
@@ -122,10 +120,6 @@
 									</aside>
 								</div>
 							</div>
-
-
-
-
 						}
 					</nav>
 				</div>
@@ -140,15 +134,22 @@
 										 src="~/img/product/@item.Image"
 										 alt=".Name" />
 										<div class="p_icon">
-											<a href="#">
+											<a asp-controller="Products" asp-action="Detailitem" asp-route-id="@item.Id">
 												<i class="ti-eye"></i>
 											</a>
-											<a href="#">
-												<i class="ti-heart"></i>
-											</a>
-											<a asp-controller="Carts" asp-action="addCreate" asp-route-AccountId="@id" asp-route-ProductId="@item.Id" asp-route-soluong="1">
+											@if (@item.Stock > 0)
+											{
+												<a asp-controller="Carts" asp-action="addCreate" asp-route-AccountId="@id" asp-route-ProductId="@item.Id" asp-route-soluong="1" asp-route-Action="IndexProducts">
 												<i class="ti-shopping-cart"></i>
 											</a>
+											}
+											@if (@item.Stock <= 0)
+											{
+												<a style="background-color:beige;">
+												<i class="ti-shopping-cart"></i>
+												</a>
+												
+											}
 
 										</div>
 									</div>
@@ -188,7 +189,21 @@
 	</div>
 
 </section>
-@section jqeryajax{
-	<script src="~/lib/vendors/jquery-ui/jquery-ui.js"></script>
-
+@section checkoder{
+	<script>
+	//$(document).ready(function(){
+    //        var oder= document.getElementById('oder');
+    //        console.log(oder.value);
+    //        if(oder.value==1){
+    //            alert("Thêm vào giỏ hàng thành công")
+    //        }
+    //        else if( oder.value==-1){
+    //            alert("Thêm vào giỏ hàng thất bại! vui lòng liên hệ với Shop để biết thêm thông tin sản phẩm")
+    //        }
+    //    oder.value = "2";
+	//	if(window.location.href !="https://localhost:7155/Products")
+	//	oder.value = "2";
+   //     });
+</script>
 }
+
