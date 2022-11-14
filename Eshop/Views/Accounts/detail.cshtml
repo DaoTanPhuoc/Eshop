@@ -110,7 +110,7 @@ z
                                     <div>
                                         
                                             <p class="lead fw-normal mb-1">Update Password</p>
-                                            <div class="col-lg-9 dexaa">
+                                            <div class="col-lg-9 dexaa" style="text-al">
              
                                                 <input type="hidden" asp-for="Id" />
                                                 <div class="form-group">
@@ -118,16 +118,18 @@ z
                                                     <span asp-validation-for="Password" class="text-danger"></span>
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="password" name="newPass" class="form-control" placeholder="New Password">
-                                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                                    <input type="password" name="newPass" class="form-control" placeholder="New Password" id="newPass">
+                                                    <span asp-validation-for="Password" class="text-danger" id="newPasstext" style="display:none;">mật khẩu lớn hơn 6 kí tự bao gồm số và chữ</span>
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="password" name="confiPass" class="form-control" placeholder="confi Pasword">
-                                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                                    <input type="password" name="confiPass" class="form-control" placeholder="confi Pasword" id="confiPass">
+                                                    <span asp-validation-for="Password" class="text-danger" id="confiPasstext" style="display:none;">Mật khẩu mới không khớp vui lòng nhập lại</span>
                                                 </div>
                                                 <span>@ViewBag.ErrorMess</span>
-
-                                                <button type="submit" class="btn btn-success">ChangePassword</button>
+                                                <div>
+                                                    <button type="submit" class="btn btn-success" id="on_off_submit" style="display:none;margin: 0 auto;">ChangePassword</button>
+                                                </div>
+                                                
 
 
                                             </div>
@@ -168,11 +170,39 @@ z
             element1.style.zIndex = "-1";
             element2.style.zIndex = "1";
         }
+        
+    </script>
+    <script>
+        var b = /^([0-9])[a-zA-Z0-9]{6,15}$/;
+$("#newPass").keyup(function() {
+    var a = $(this).val();
+    
+    if (a.match(b)) {
+        console.log($(this).val());
+        $("#newPasstext").css("display", "none");
+    }else {
+        $("#newPasstext").css("display", "block"); 
+    }
+})
+         $("#confiPass").keyup(function() {
+        var newpass = $("#newPass").val();
+        var confipass = $("#confiPass").val();
+             console.log(newpass, confipass);
+             if (newpass === confipass && newpass.match(b)) {
+                 $('#on_off_submit').css("display", "block");
+                 $('#confiPasstext').css("display", "none");
+             }
+             else {
+                 $('#on_off_submit').css("display", "none");
+                 $('#confiPasstext').css("display", "block");
+             }
+})
     </script>
 }
 
     @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
+       
     }
 	}
