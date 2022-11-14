@@ -27,6 +27,7 @@ namespace Eshop.Controllers
         public ActionResult Index(int? page, string searchString="", int?producttytleID = 0, string price = "")
         {
             var books = _context.Products.Include(p => p.ProductType);
+
             var skipbooks = from a in books select (a);
             //select list branh
             var brand = _context.ProductTypes.ToList();
@@ -58,35 +59,6 @@ namespace Eshop.Controllers
                 skipbooks = skipbooks.Where(b => b.Name.Contains(searchString));
             }
 
-            // phan trang+search
-            
-            var countitem = skipbooks.Count();
-            double matchcelling = countitem;
-            if (page == null)
-            {
-                page = 1;
-               
-
-                skipbooks = skipbooks.Skip((int)(page - 1) * 8).Take(8);
-               
-
-            }
-            if(countitem<=0)
-			{
-                ViewBag.tab = 0;
-            }
-            else if (countitem < 8)
-			{
-                skipbooks = skipbooks.Skip((int)(page - 1) * countitem).Take(countitem);
-                ViewBag.tab = 1;
-            }
-			else
-			{
-                skipbooks = skipbooks.Skip((int)(page - 1) * 8).Take(8);
-                matchcelling = matchcelling / 8;
-                ViewBag.tab = Math.Ceiling(matchcelling);
-            }
-
             // sap xep nang cao
             // tao gia tri sap xep
             List<SelectListItem> items = new List<SelectListItem>();
@@ -104,6 +76,33 @@ namespace Eshop.Controllers
                     skipbooks = skipbooks.OrderBy(p => p.Price);
                     break;
             }
+
+            // phan trang+search
+
+            var countitem = skipbooks.Count();
+            double matchcelling = countitem;
+            if (page == null)
+            {
+                page = 1;
+                skipbooks = skipbooks.Skip((int)(page - 1) * 8).Take(8);
+            }
+            if(countitem<=0)
+			{
+                ViewBag.tab = 0;
+            }
+            else if (countitem < 8)
+			{
+                skipbooks = skipbooks.Skip((int)(page - 1) * countitem).Take(countitem);
+                ViewBag.tab = 1;
+            }
+			else
+			{
+                skipbooks = skipbooks.Skip((int)(page - 1) * 8).Take(8);
+                matchcelling = matchcelling / 8;
+                ViewBag.tab = Math.Ceiling(matchcelling);
+            }
+
+            
 
             
             return View(skipbooks.ToList());
