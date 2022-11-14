@@ -1,10 +1,11 @@
 ﻿@inject IHttpContextAccessor Accessor
 @{
     String name = Accessor.HttpContext.Session.GetString("Name");
-    
+
     var id = Accessor.HttpContext.Session.GetInt32("id");
     var cartsAccount=Accessor.HttpContext.Session.GetInt32("cartsAccount");
-    
+    var oders = Accessor.HttpContext.Request.Cookies["cartadd"];
+    var a = 0;
 }
 
 <!DOCTYPE html>
@@ -38,6 +39,7 @@
 </head>
 
 <body>
+    <input type="hidden" id="oder" value="@oders"/>
     <!--================Header Menu Area =================-->
     <header class="header_area">
         <div class="top_menu">
@@ -326,19 +328,20 @@
     @RenderSection("assss", required:false)
     @RenderSection("checkoder", required:false)
      <script>
-       //$(document).ready(function(){
-    //        var oder= document.getElementById('oder');
-    //        console.log(oder.value);
-    //        if(oder.value==1){
-    //            alert("Thêm vào giỏ hàng thành công")
-    //        }
-    //        else if( oder.value==-1){
-    //            alert("Thêm vào giỏ hàng thất bại! vui lòng liên hệ với Shop để biết thêm thông tin sản phẩm")
-    //        }
-    //    oder.value = "2";
-	//	if(window.location.href !="https://localhost:7155/Products")
-	//	oder.value = "2";
-   //     });
+      $(document).ready(function(){
+           var oder= document.getElementById('oder');
+           console.log(oder.value);
+           if(oder.value==1){
+               alert("Thêm vào giỏ hàng thành công")
+
+           }
+           else if( oder.value==-1){
+                alert("Thêm vào giỏ hàng thất bại! vui lòng liên hệ với Shop để biết thêm thông tin sản phẩm")
+                 $.removeCookie("cartadd");
+            }
+        oder.value = "2";
+          $.removeCookie("cartadd");
+       });
 
 
     function myFunction() {
@@ -353,7 +356,5 @@
   
 }
 </script>
-
 </body>
-
 </html>
