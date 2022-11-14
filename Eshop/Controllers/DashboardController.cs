@@ -14,7 +14,7 @@ namespace Eshop.Controllers
 
         public DashboardController(ILogger<DashboardController> logger, EshopContext context)
         {
-            _logger = logger;
+			_logger = logger;
             _context = context;
         }
 

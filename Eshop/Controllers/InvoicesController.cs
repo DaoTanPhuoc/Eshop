@@ -168,18 +168,28 @@ namespace Eshop.Controllers
 
         public IActionResult Purchase()
         {
+            var id = HttpContext.Session.GetInt32("id");
+            if (id == null)
+                return RedirectToAction("login", "Accounts");
             return View();
         }
         [HttpPost]
         public IActionResult Purchase(String shipAddress, String shipPhone)
         {
             var id = HttpContext.Session.GetInt32("id");
-            if(id == 0)
+            if(id == null)
             {
                 return RedirectToAction("Index", "Home");
             }
+            if(shipAddress == null || shipPhone == null)
+            {
+                return View();
+            }
             var accountId = _context.Accounts.Where(a => a.Id == id).FirstOrDefault().Id;
+
             var carts = _context.Carts.Include(c => c.Product).Include(c => c.Account);
+   
+
             int total = _context.Carts.Where(c=>c.AccountId == accountId).Sum(c => c.Product.Stock * c.Product.Price);
             Invoice invoice = new Invoice
             {

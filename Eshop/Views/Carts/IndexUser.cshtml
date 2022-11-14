@@ -1,24 +1,11 @@
-﻿@model IEnumerable<Cart>
+﻿@inject IHttpContextAccessor Accessor
+@model IEnumerable<Cart>
 @{
+	var id = Accessor.HttpContext.Session.GetInt32("id");
 	var total=0;
 }
 <!--================Home Banner Area =================-->
-<section class="banner_area">
-	<div class="banner_inner d-flex align-items-center">
-		<div class="container">
-			<div class="banner_content d-md-flex justify-content-between align-items-center">
-				<div class="mb-3 mb-md-0">
-					<h2>Cart</h2>
-					<p>Very us move be blessed multiply night</p>
-				</div>
-				<div class="page_link">
-					<a href="index.html">Home</a>
-					<a href="cart.html">Cart</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
+
 <!--================End Home Banner Area =================-->
 <!--================Cart Area =================-->
 <section class="cart_area">
@@ -32,24 +19,32 @@
 							<th scope="col">Price</th>
 							<th scope="col">Quantity</th>
 							<th scope="col">Total</th>
+							<th scope="col">Function</th>
 						</tr>
 					</thead>
 					<tbody>
-						@if (@ViewBag.items!=null)
+						
+							@if (@ViewBag.items!=null)
 						{
-							
 							@foreach (var item in @ViewBag.items)
 							{
 								total +=(@item.Product.Price*@item.Quantity);
+								@using (Html.BeginForm("Save", "Carts", new { @class = "from-cart" }))
+										{
+											<input type="hidden" name="Id" value="@item.Id"/>
+										 <input type="hidden" name="AccountId" value="@id"/>
+										 
 								<tr>
 									<td>
 										<div class="media">
-											<div class="d-flex">
-												<img src="~/img/product/@item.Product.Image"
+											<div class="d-flex w-60" style="width:15rem">
+												<img style="width:100%" src="~/img/product/@item.Product.Image"
 											 alt="" />
 											</div>
 											<div class="media-body">
-												<p>Minimalistic shop for multipurpose use</p>
+
+												<input type="hidden" name="ProductId" value="@item.Product.Id"/>
+												<p>@item.Product.Name</p>
 											</div>
 										</div>
 									</td>
@@ -57,57 +52,42 @@
 										<h5>$@item.Product.Price</h5>
 									</td>
 									<td>
-										<div class="product_count">
-											<input type="text"
-										   name="qty"
-										   id="sst"
-										   maxlength="12"
-										   value="@item.Quantity"
-										   title="Quantity:"
-										   class="input-text qty" />
-											<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-											class="increase items-count"
-											type="button">
-												<i class="lnr lnr-chevron-up"></i>
-											</button>
-											<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-											class="reduced items-count"
-											type="button">
-												<i class="lnr lnr-chevron-down"></i>
-											</button>
-										</div>
+										<input type="hidden" class="check" value="@item.Quantity">
+											@if (item.Quantity <= item.Product.Stock)
+											{
+												<input class="check2" oninput="myFunctions()" type="number" name="Quantity" min="0" max="@item.Product.Stock"value="@item.Quantity"title="Quantity:"/>
+											}
+											else
+											{
+												<input class="check2" oninput="myFunctions()" type="number"
+										   name="Quantity"
+										   min="0"
+										   max="@item.Product.Stock"
+										   value="@item.Product.Stock"
+										   title="Quantity:"/>
+										   <span>Bạn hãy liên hệ shop để nhận những thông tin về sản phẩm này nhé</span>
+											}
+											 
+
 									</td>
 									<td>
 										<h5>@(item.Product.Price*@item.Quantity)</h5>
 									</td>
+									<td>
+										<button class="main_btn" type="submit">Save</button>
+										 
+									</td>
+									
 								</tr>
 							}
 
 						}
-
-
-
-
-
-
-
-
-						<tr class="bottom_button">
-							<td>
-								<a class="gray_btn" href="#">Update Cart</a>
-							</td>
-							<td></td>
-							<td></td>
-							<td>
-								<div class="cupon_text">
-									<input type="text" placeholder="Coupon Code" />
-									<a class="main_btn" href="#">Apply</a>
-									<a class="gray_btn" href="#">Close Coupon</a>
-								</div>
-							</td>
-						</tr>
+						}
+						
+						
 
 						<tr>
+							<td></td>
 							<td></td>
 							<td></td>
 							<td>
@@ -117,57 +97,15 @@
 								<h5>$@total</h5>
 							</td>
 						</tr>
-
-						<tr class="shipping_area">
-							<td></td>
-							<td></td>
-							<td>
-								<h5>Shipping</h5>
-							</td>
-							<td>
-								<div class="shipping_box">
-									<ul class="list">
-										<li>
-											<a href="#">Flat Rate: $5.00</a>
-										</li>
-										<li>
-											<a href="#">Free Shipping</a>
-										</li>
-										<li>
-											<a href="#">Flat Rate: $10.00</a>
-										</li>
-										<li class="active">
-											<a href="#">Local Delivery: $2.00</a>
-										</li>
-									</ul>
-									<h6>
-										Calculate Shipping
-										<i class="fa fa-caret-down" aria-hidden="true"></i>
-									</h6>
-									<select class="shipping_select">
-										<option value="1">Bangladesh</option>
-										<option value="2">India</option>
-										<option value="4">Pakistan</option>
-									</select>
-									<select class="shipping_select">
-										<option value="1">Select a State</option>
-										<option value="2">Select a State</option>
-										<option value="4">Select a State</option>
-									</select>
-									<input type="text" placeholder="Postcode/Zipcode" />
-									<a class="gray_btn" href="#">Update Details</a>
-								</div>
-							</td>
-						</tr>
-
 						<tr class="out_button_area">
+							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>
 							<td>
 								<div class="checkout_btn_inner">
-									<a class="gray_btn" href="#">Continue Shopping</a>
-									<a class="main_btn" href="#">Proceed to checkout</a>
+									<a class="gray_btn" asp-action="Index" asp-controller="Products">Continue Shopping</a>
+									<a class="main_btn" asp-action="Purchase" asp-controller="Invoices">Proceed to checkout</a>
 								</div>
 							</td>
 						</tr>
@@ -178,3 +116,6 @@
 		</div>
 	</div>
 </section>
+@section checkSave{
+ 
+}
