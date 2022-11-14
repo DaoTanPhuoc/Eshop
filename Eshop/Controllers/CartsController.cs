@@ -198,15 +198,16 @@ namespace Eshop.Controllers
                     _context.Add(itemcart);
                     _context.SaveChanges();
                     soluong = _context.Carts.Where(a => a.AccountId == AccountId).Sum(p => p.Quantity);
-                    HttpContext.Session.SetInt32("oder", 1);
                     HttpContext.Session.SetInt32("cartsAccount", soluong);
-                     
+                    HttpContext.Response.Cookies.Append("cartadd", "1", new CookieOptions { Expires = DateTime.Now.AddSeconds(3) });
+
+
                 }
                 else
                 {
                     if (itemcarts.Quantity >= stockcart.Stock)
                     {
-                        HttpContext.Session.SetInt32("oder", -1);
+                        HttpContext.Response.Cookies.Append("cartadd", "-1", new CookieOptions { Expires = DateTime.Now.AddSeconds(1) });
                         return RedirectToAction("Index", "Products");
                     }
                     else
@@ -216,8 +217,9 @@ namespace Eshop.Controllers
                             _context.Add(itemcart);
                             _context.SaveChanges();
                             soluong = _context.Carts.Where(a => a.AccountId == AccountId).Sum(p => p.Quantity);
-                            HttpContext.Session.SetInt32("oder", 1);
                             HttpContext.Session.SetInt32("cartsAccount", soluong);
+                            HttpContext.Response.Cookies.Append("cartadd", "1", new CookieOptions { Expires = DateTime.Now.AddSeconds(1) });
+
                         }
                         else
                         {
@@ -232,15 +234,18 @@ namespace Eshop.Controllers
                             _context.SaveChanges();
                             // dem so luon 
                             soluong = _context.Carts.Where(a => a.AccountId == AccountId).Sum(p => p.Quantity);
-                            HttpContext.Session.SetInt32("oder", 1);
                             HttpContext.Session.SetInt32("cartsAccount", soluong);
+                            HttpContext.Response.Cookies.Append("cartadd", "1", new CookieOptions { Expires = DateTime.Now.AddSeconds(1) });
+
                         }
                     }
                 }
               
             }
+            // cookie
+            
             // trả về vị trí đang đứng 
-            if(Actionk == "IndexProducts")
+            if (Actionk == "IndexProducts")
                 return RedirectToAction("Index","Products");
             if(Actionk == "Detailitem")
                 return RedirectToAction("Detailitem", "Products", new {id=ProductId});
