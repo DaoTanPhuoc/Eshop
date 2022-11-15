@@ -261,7 +261,7 @@ namespace Eshop.Controllers
                 return RedirectToAction("Index", "Home");
 
             }
-            else
+            else 
             {
                 // khi dang nhap thanh cong thi dua san pham tu gio hang cua nguoi do ra ngoai
                 var soluong = _context.Carts.Where(a => a.AccountId == obj.Id).Sum(p => p.Quantity);
@@ -271,7 +271,7 @@ namespace Eshop.Controllers
                 HttpContext.Session.SetString("Name", "Admin");
                 return RedirectToAction("Index","Home");// day la trang cua admin
             }
-
+            
         }
 
 
