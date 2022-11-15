@@ -186,7 +186,10 @@ namespace Eshop.Controllers
                 return View();
             }
             var accountId = _context.Accounts.Where(a => a.Id == id).FirstOrDefault().Id;
-            var carts = _context.Carts.Include(c => c.Product).Include(c=>c.Account);
+
+            var carts = _context.Carts.Include(c => c.Product).Include(c => c.Account);
+   
+
             int total = _context.Carts.Where(c=>c.AccountId == accountId).Sum(c => c.Product.Stock * c.Product.Price);
             Invoice invoice = new Invoice
             {

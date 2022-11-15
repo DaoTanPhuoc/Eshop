@@ -145,9 +145,13 @@ namespace Eshop.Areas.Dashboard.Controllers
                 return Problem("Entity set 'EshopContext.Accounts'  is null.");
             }
             var account = await _context.Accounts.FindAsync(id);
-            if (account != null)
+            if (account != null && account.IsAdmin==false)
             {
                 _context.Accounts.Remove(account);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
             }
             
             await _context.SaveChangesAsync();
