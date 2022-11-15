@@ -159,7 +159,7 @@
                                                  </a>
                                             </li>
                                          }
-                                         else{
+                                         else if(cartsAccount==null && cartsAccount==0){
                                          <li class="nav-item">
                                             <i class="ti-shopping-cart icons"></i>
                                         </li>
@@ -317,6 +317,8 @@
     <script src="~/lib/vendors/counter-up/jquery.counterup.js"></script>
     <script src="~/js/mail-script.js"></script>
     <script src="~/js/theme.js"></script>
+    <script src="~/js/jsaspopen.js"></script>
+
   
  
    
@@ -327,6 +329,7 @@
     @RenderSection("Scripts", required:false)
     @RenderSection("assss", required:false)
     @RenderSection("checkoder", required:false)
+    @RenderSection("validationThanh", required:false)
      <script>
       $(document).ready(function(){
            var oder= document.getElementById('oder');

@@ -8,15 +8,30 @@
         <div class="icon">
             <i class="fa fa-thumb-tack" aria-hidden="true"></i>
         </div>
-        <input type="text" name="shipAddress" placeholder="Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Address'" required="" class="single-input">
+        <input type="text" id="shipAddress" name="shipAddress" placeholder="Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Address'" required="" class="single-input">
     </div>
     <div class="input-group-icon mt-10 form-group">
         <div class="icon">
             <i class="fa fa-phone" aria-hidden="true"></i>
         </div>
-        <input type="text" name="shipPhone" placeholder="Phone" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone'" required="" class="single-input">
+        <input type="number" id="shipPhone" name="shipPhone" placeholder="Phone" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone'" required="" class="single-input">
     </div>
-    <input class="genric-btn success circle" type="submit" value="Thanh toán" />
+    <input class="genric-btn success circle" type="submit" style="display:none" id="submitaaa" value="Thanh toán" />
 </form>
     </div>
 </div>
+@section validationThanh{
+    <script>
+$("#shipPhone").keyup(function() {
+    var a = $(this).val();
+    var check = /^[8][4][0-9]{8}$/;
+    if (a.match(check)) {
+        $("#submitaaa").css("display", "block");
+    }
+    else { 
+        $("#submitaaa").css("display", "none");
+    }
+})
+    </script>
+}
+
