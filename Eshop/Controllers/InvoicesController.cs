@@ -218,7 +218,10 @@ namespace Eshop.Controllers
                 _context.Products.Update(item.Product);
                 
             }
+            
             _context.SaveChanges();
+            int soluong = _context.Carts.Where(a => a.AccountId == id).Sum(p => p.Quantity);
+            HttpContext.Session.SetInt32("cartsAccount", soluong);
             return RedirectToAction("Index", "Home");
         }
     }

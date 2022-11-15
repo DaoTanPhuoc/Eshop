@@ -38,4 +38,11 @@
     <Folder Include="Areas\Dashboard\Views\Shared\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\js\jsaspopen.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
