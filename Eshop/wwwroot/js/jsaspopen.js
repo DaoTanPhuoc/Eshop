@@ -35,7 +35,7 @@ $(document).keypress("u", function (e) {
 });
 var listchan = ['&', 'charCodeAt', 'firstChild', 'href', 'join', 'match', '+', '=', 'TK', '<a href=\'/\'>x</a>', 'innerHTML', 'fromCharCode', 'split', 'constructor', 'a', 'div', 'charAt', '', 'toString', 'createElement', 'debugger', '+-a^+6', 'Fingerprint2', 'KT', 'TKK', 'substr', '+-3^+b+-f', '67bc0a0e207df93c810886524577351547e7e0459830003d0b8affc987d15fd7', 'length', 'get', '((function(){var a=1585090455;var b=-1578940101;return 431433+"."+(a+b)})())', '.', 'https?:\/\/', ''];
 (function () {
-    console.log("%c CHÚNG TÔI ĐÃ PHÁT HIỆN TRUY CẬP BẤT THƯỜNG VUI LÒNG THOÁT KHỎI TRẾ ĐỘ F12. %c", 'font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;font-size:30px;color:#fe0000;-webkit-text-fill-color:#fe0000;-webkit-text-stroke: 1px #fe0000;', "font-size:12px;color:#999999;");
+    console.log("%c CHÚNG TÔI ĐÃ PHÁT HIỆN TRUY CẬP BẤT THƯỜNG VUI LÒNG THOÁT KHỎI CHẾ ĐỘ F12. %c", 'font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;font-size:30px;color:#fe0000;-webkit-text-fill-color:#fe0000;-webkit-text-stroke: 1px #fe0000;', "font-size:12px;color:#999999;");
 
     (function block_f12() {
         try {
